@@ -4,26 +4,27 @@ const session = require('koa-session');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const fs = require('fs');
+const serve = require("koa-static");
 
 const router = require('@koa/router')();
 
 
 
-const app = module.exports = new Koa();
+const app = new Koa();
 
 app.use(session(app));
 // app.use(koaBody());
 
-
+router.get('/static/(.*)', serve("./"));
 /**
  * route
  */
+
 router.get('/get/:word', word);
 router.get('/', (ctx)=>{
   return new Promise((resolve)=>{
     ctx.set('Content-Type', 'text/html');
     fs.readFile('./index.html', 'utf8', (error, data) => {
-      console.log('error', data);
       ctx.set('Content-Type', 'text/html')
       ctx.body = data;
       resolve();

@@ -10,24 +10,93 @@
   <link rel="stylesheet" href="" />
   <style type="text/css">
   </style>
-  <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.5.0/axios.js"></script>
-  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.3.4/vue.global.prod.min.js"></script>
+  <script src="/static/axios/1.5.0/axios.js"></script>
+  <script src="/static/vue/3.3.4/vue.global.prod.min.js"></script>
+
+  <script src="/static/element-plus/2.3.12/index.full.js"></script>
+  <link href="/static/element-plus/2.3.12/index.min.css" rel="stylesheet">
+  <link href="/static/element-plus/2.3.12/el-icon.min.css" rel="stylesheet">
+  <style type="text/css">
+    .fixed-input {
+      position: fixed;
+      bottom: 20px;
+      width: 100%;
+    }
+    .search-button {
+      width: 80px;
+      letter-spacing: 3px;
+    }
+    .line {
+      height: 34px;
+      line-height:  34px;
+      border-bottom: 1px solid rgba(0,0,0,0.2);
+    }
+    .el-space__item:nth-child(odd) {
+      background-color: rgba(0,100,0,0.2);
+    }
+    #app {
+      width: 100%;
+    }
+  </style>
 </head>
 
 <body class="doc">
-  <div class="head">
-    <input id="" />
+  <div id="app">
+    <el-row :gutter="20" class="fixed-input">
+      <el-col :span="6"><div class="grid-content ep-bg-purple" ></div></el-col>
+      <el-col :span="12">
+        <el-input size="large" v-model="input" placeholder="Please input">
+          <template #append>
+            <el-button @click="search" class="search-button">搜索</el-button>
+          </template>
+        </el-input>
+      </el-col>
+      <el-col :span="6"><div class="grid-content ep-bg-purple" ></div></el-col>
+    </el-row>
+    <lines />
   </div>
-  <div class="body">
-    <script type="text/javascript">
-      axios.get('/get/中国').then(res=>{
-        console.log(res);
-      })
-    </script>
-  </div>
-  <div class="foot">
-  </div>
+
+  <template id="lineTemplate">
+    <el-space class="lines-block" fill direction="vertical" style="width: 100%">
+      <div class="line" v-for="k in lines" >
+
+      </div>
+    </el-space>
+  </template>
+
+  <script type="text/javascript">
+    axios.get('/get/中国').then(res=>{
+      console.log(res);
+    })
+
+    const lineComponent = {
+      setup() {
+        const lines = Vue.ref(30);
+        return {
+          lines,
+        }
+      },
+      template: document.querySelector("#lineTemplate")
+    };
+
+    const app = Vue.createApp({
+      setup() {
+        const input = Vue.ref('');
+        const search = () => {
+          console.log(input.value)
+        }
+        return {
+          input,
+          search,
+        }
+      }
+    });
+
+    app.use(ElementPlus);
+    app.component('lines', lineComponent);
+
+    app.mount('#app');
+  </script>
 
 </body>
-
 </html>
