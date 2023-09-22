@@ -27,12 +27,23 @@
       letter-spacing: 3px;
     }
     .line {
-      height: 34px;
-      line-height:  34px;
-      border-bottom: 1px solid rgba(0,0,0,0.2);
+      height: 60px;
+      line-height:  60px;
+      /* border-bottom: 1px solid rgba(0,0,0,0.2); */
+    }
+    .el-space__item {
+      border-bottom: 1px solid rgba(0,0,0,0.1);
     }
     .el-space__item:nth-child(odd) {
-      background-color: rgba(0,100,0,0.2);
+      background-color: rgba(0,100,0,0.08);
+    }
+    .fixed-input{
+      --el-component-size-large: 60px;
+      --el-border-radius-base: 10px;
+    }
+    .fixed-input .el-input--large {
+      box-shadow: 0 0px 10px 4px rgba(0, 0, 0, 0.1);
+      border-radius: var(--el-border-radius-base);
     }
     #app {
       width: 100%;
@@ -53,27 +64,30 @@
       </el-col>
       <el-col :span="6"><div class="grid-content ep-bg-purple" ></div></el-col>
     </el-row>
-    <lines />
+    <lines :list="list" />
   </div>
 
   <template id="lineTemplate">
     <el-space class="lines-block" fill direction="vertical" style="width: 100%">
       <div class="line" v-for="k in lines" >
-
       </div>
     </el-space>
   </template>
 
   <script type="text/javascript">
-    axios.get('/get/中国').then(res=>{
-      console.log(res);
-    })
+
+
 
     const lineComponent = {
-      setup() {
-        const lines = Vue.ref(30);
+      setup(props) {
+
+        const lines = Vue.computed(()=> props.list);
+        console.log(props.list)
+
+
         return {
           lines,
+
         }
       },
       template: document.querySelector("#lineTemplate")
@@ -82,13 +96,23 @@
     const app = Vue.createApp({
       setup() {
         const input = Vue.ref('');
+        const list = Vue.ref([]);
         const search = () => {
-          console.log(input.value)
+          if (input.value) {
+            axios.get(`/get/${input.value}`).then(({data})=>{
+              list.value = data.data;
+              console.log('list.value', )
+            })
+          }
         }
         return {
           input,
+          list,
           search,
         }
+      },
+      components: {
+        lines: lineComponent
       }
     });
 
