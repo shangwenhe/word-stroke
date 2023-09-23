@@ -22,7 +22,7 @@ const app = Vue.createApp({
     const list = Vue.ref([]);
     const search = () => {
       if (input.value) {
-        axios.get(`/get/${input.value}`).then(({data})=>{
+        axios.get(`/stroked/get/${input.value}`).then(({data})=>{
           list.value = data.data;
         }).then(()=>{
           Vue.nextTick(()=>{

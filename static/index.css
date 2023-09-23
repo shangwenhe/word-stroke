@@ -41,7 +41,7 @@ body{
   align-content: flex-start;
   align-items: center;
   width: 100%;
-  /* background: url('/static/images/stroke.png') ; */
+  /* background: url('/stroked/static/images/stroke.png') ; */
 }
 
 
@@ -51,7 +51,7 @@ body{
 
 .word-stroke .word-stroke-detail {
 
-  background: url('/static/images/stroke.png') -1px -1px;
+  background: url('/stroked/static/images/stroke.png') -1px -1px;
   border: 1px solid #ccc;
   margin-right: -1px;
   margin-bottom: -1px;
@@ -64,7 +64,7 @@ body{
   justify-content: center;
   flex-wrap: nowrap;
   font-size: 15px;
-  color: #1F1F1F;
+  color: #cccccc;
   text-align: center;
   align-content: center;
   column-gap: 5px;
