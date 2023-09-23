@@ -38,7 +38,10 @@ function word(ctx) {
     return axios.get(`https://hanyu.baidu.com/s?wd=${encodeURIComponent(key)}&ptype=zici`).then(res=>{
       const $ = cheerio.load(res.data);
       const pinyin = $('#pinyin').html()?.trim();
-      const wordStroke = $('.word-stroke .word-stroke-wrap').html()?.trim();
+      const wordStroke = $('.word-stroke .word-stroke-wrap').html()?.trim()
+        .replace(/#1F1F1F/ig, '#ffacac')
+        .replace(/#B8B8B8/ig,'#DDDDDD')
+        .replace(/#FF1111/ig, '#ffacac');
       return {
         name: key,
         pinyin,
