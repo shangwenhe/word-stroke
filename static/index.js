@@ -17,12 +17,15 @@ const fillLine = () => {
 
 const app = Vue.createApp({
   setup() {
-    const input = Vue.ref('天安门');
+
+    const input = Vue.ref('我爱北京天安门');
     // 爱北京天安门
     const list = Vue.ref([]);
+
     const search = () => {
       if (input.value) {
         axios.get(`/stroked/get/${input.value}`).then(({data})=>{
+        // axios.get(`/get/${input.value}`).then(({data})=>{
           list.value = data.data;
         }).then(()=>{
           Vue.nextTick(()=>{
@@ -31,6 +34,14 @@ const app = Vue.createApp({
         })
       }
     }
+    Vue.onMounted(() => {
+      const params = new URL(document.location).searchParams;
+      const w = params.get('w');
+      if (w){
+        input.value = w;
+        search();
+      }
+    });
     return {
       input,
       list,

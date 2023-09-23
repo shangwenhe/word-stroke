@@ -41,7 +41,7 @@ body{
   align-content: flex-start;
   align-items: center;
   width: 100%;
-  /* background: url('/stroked/static/images/stroke.png') ; */
+  /* background: url('https://static-origin.yanlingxinrui.com/stroked-static/images/stroke.png') ; */
 }
 
 
@@ -51,7 +51,7 @@ body{
 
 .word-stroke .word-stroke-detail {
 
-  background: url('/stroked/static/images/stroke.png') -1px -1px;
+  background: url('https://static-origin.yanlingxinrui.com/stroked-static/images/stroke.png') -1px -1px;
   border: 1px solid #ccc;
   margin-right: -1px;
   margin-bottom: -1px;
