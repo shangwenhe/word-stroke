@@ -19,8 +19,7 @@ const app = Vue.createApp({
   setup() {
     const input = Vue.ref('天安门');
     // 爱北京天安门
-    const list = Vue.ref(worddata.data);
-    setTimeout(()=>{fillLine()}, 300);
+    const list = Vue.ref([]);
     const search = () => {
       if (input.value) {
         axios.get(`/get/${input.value}`).then(({data})=>{
